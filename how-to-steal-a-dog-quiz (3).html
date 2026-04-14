@@ -1,0 +1,2560 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>How to Steal a Dog — Reading Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--amber:#B8860B;--amber-d:#7A5800;--amber-l:#FFF8E7;--teal:#007A65;--teal-l:#E6F7F3;--coral:#E05555;--coral-l:#FFF0F0;--navy:#1B2E55;--navy-m:#2C3E6B;--bg:#F5F0E8;--white:#fff;--text:#1E2A3A;--soft:#5A6880;--border:#DDD5C0;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito','Nanum Gothic',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+/* HEADER */
+.ph{background:linear-gradient(135deg,#1a1000,#5C3A00 50%,#B8860B);color:#fff;padding:24px 16px 0;text-align:center;position:relative;overflow:hidden;}
+.ph::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,220,80,.2),transparent 55%);}
+.badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:3px 14px;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;position:relative;}
+.ph h1{font-size:clamp(14px,3.5vw,22px);font-weight:900;position:relative;margin-bottom:2px;}
+.ph .sub{font-size:11px;opacity:.7;position:relative;margin-bottom:12px;}
+/* TABS */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:relative;z-index:1;}
+.tw::-webkit-scrollbar{display:none;}
+.tabs{display:flex;gap:2px;padding:0 6px;min-width:max-content;}
+.tab{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:1px;padding:8px 10px 11px;background:rgba(255,255,255,.12);border:none;border-radius:8px 8px 0 0;color:rgba(255,255,255,.7);font-family:inherit;font-size:11px;font-weight:800;cursor:pointer;transition:all .15s;border-bottom:3px solid transparent;white-space:nowrap;}
+.tab .tc{font-size:8px;opacity:.65;}
+.tab:hover{background:rgba(255,255,255,.2);color:#fff;}
+.tab.active{background:var(--bg);color:var(--navy);border-bottom:3px solid var(--amber);}
+.tab.done-tab::after{content:' ✓';color:#6EEBC4;}
+/* PRINT BAR */
+.pb{background:#fff;border-bottom:1px solid var(--border);padding:9px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:300;box-shadow:0 2px 6px rgba(27,46,85,.06);}
+.pb-lbl{font-size:11px;font-weight:800;color:var(--soft);}
+.btn-p{display:inline-flex;align-items:center;gap:5px;border:none;border-radius:7px;cursor:pointer;font-family:inherit;font-size:11px;font-weight:800;padding:6px 12px;transition:all .15s;}
+.btn-pa{background:var(--navy-m);color:#fff;}
+.btn-pa:hover{background:var(--navy);}
+.btn-pc{background:var(--amber-l);color:var(--amber-d);border:1.5px solid rgba(184,134,11,.3);}
+.btn-pc:hover{background:var(--amber-d);color:#fff;}
+/* PANEL */
+.panel{display:none;max-width:780px;margin:0 auto;padding:18px 12px 60px;}
+.panel.active{display:block;}
+.cat{display:flex;align-items:center;gap:8px;margin:14px 0 9px;font-size:10px;font-weight:800;color:var(--soft);letter-spacing:.08em;text-transform:uppercase;}
+.cat::after{content:'';flex:1;height:1px;background:var(--border);}
+/* QUESTION CARD */
+.q-card{background:var(--white);border-radius:10px;box-shadow:0 2px 7px rgba(27,46,85,.06);border:1.5px solid var(--border);margin-bottom:9px;overflow:hidden;}
+.q-head{padding:12px 14px 8px;display:flex;align-items:flex-start;gap:10px;}
+.q-num{flex-shrink:0;width:24px;height:24px;background:var(--amber-d);color:#fff;border-radius:6px;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+.q-en{font-size:13.5px;font-weight:700;line-height:1.5;flex:1;}
+.options{padding:2px 13px 11px;display:flex;flex-direction:column;gap:6px;}
+.opt{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;border:2px solid var(--border);font-size:12.5px;font-weight:600;color:var(--text);cursor:pointer;user-select:none;-webkit-user-select:none;transition:border-color .12s,background .12s;}
+.opt:hover{border-color:var(--amber);background:var(--amber-l);}
+.opt-key{flex-shrink:0;width:24px;height:24px;border-radius:5px;background:var(--bg);color:var(--soft);font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--border);transition:all .12s;}
+.opt.sel{border-color:var(--navy-m);background:#EEF2FF;}
+.opt.sel .opt-key{background:var(--navy-m);color:#fff;border-color:var(--navy-m);}
+.q-card.done .opt{cursor:default;pointer-events:none;}
+.q-card.done .opt.ok,.q-card.done .opt.show-ans{border-color:var(--teal);background:var(--teal-l);}
+.q-card.done .opt.ok .opt-key,.q-card.done .opt.show-ans .opt-key{background:var(--teal);color:#fff;border-color:var(--teal);}
+.q-card.done .opt.bad{border-color:var(--coral);background:var(--coral-l);}
+.q-card.done .opt.bad .opt-key{background:var(--coral);color:#fff;border-color:var(--coral);}
+/* RESULT */
+.q-result{display:none;padding:2px 14px 6px;align-items:center;gap:7px;}
+.q-card.done .q-result{display:flex;}
+.rtag{display:inline-flex;align-items:center;gap:4px;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:800;}
+.rtag-ok{background:var(--teal-l);color:var(--teal);}
+.rtag-bad{background:var(--coral-l);color:var(--coral);}
+.rans{font-size:11px;color:var(--soft);font-weight:700;}
+/* EXPLANATION */
+.q-expl{display:none;padding:8px 14px 12px;font-size:12px;line-height:1.65;border-top:1.5px dashed #D4A017;}
+.q-card.done .q-expl{display:block;}
+.q-card.done.ans-ok .q-expl{border-left:4px solid var(--teal);background:#F0FAF7;}
+.q-card.done.ans-bad .q-expl{border-left:4px solid var(--coral);background:#FFF5F5;}
+.q-card.done.ans-skip .q-expl{border-left:4px solid #bbb;background:#FAFAFA;}
+.expl-head{font-size:10px;font-weight:900;opacity:.55;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px;}
+/* SUBMIT */
+.submit-wrap{background:var(--white);border-radius:13px;box-shadow:0 4px 18px rgba(27,46,85,.08);padding:20px 18px;text-align:center;margin-top:8px;}
+.submit-wrap h3{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:3px;}
+.submit-wrap p{font-size:12px;color:var(--soft);margin-bottom:14px;}
+.btn-go{background:linear-gradient(135deg,#5C3A00,#B8860B);color:#fff;border:none;border-radius:10px;padding:11px 32px;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(184,134,11,.35);transition:all .18s;}
+.btn-go:hover{transform:translateY(-2px);}
+.btn-go:disabled{background:#ccc;box-shadow:none;cursor:not-allowed;transform:none;}
+.score-box{display:none;margin-top:16px;border-radius:12px;background:linear-gradient(135deg,#1a1000,#5C3A00);color:#fff;padding:20px 16px 16px;}
+.score-box.show{display:block;}
+.sc-title{font-size:9px;font-weight:800;opacity:.6;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;}
+.sc-big{font-size:40px;font-weight:900;line-height:1;letter-spacing:-1px;}
+.sc-big span{font-size:15px;font-weight:700;opacity:.6;}
+.sc-pct{font-size:12px;opacity:.7;margin-top:3px;}
+.sc-bars{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap;}
+.sc-bar{flex:1;min-width:75px;background:rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;}
+.sc-bar-label{font-size:8px;font-weight:800;opacity:.6;text-transform:uppercase;}
+.sc-bar-val{font-size:17px;font-weight:900;margin-top:2px;}
+.green{color:#6EEBC4;}.red{color:#FF8A8A;}
+.sc-msg{margin-top:12px;background:rgba(255,255,255,.08);border-radius:8px;padding:10px 12px;font-size:12px;font-weight:700;line-height:1.5;}
+.pbar{height:4px;background:rgba(255,255,255,.15);border-radius:2px;margin-top:10px;overflow:hidden;}
+.pbar-fill{height:100%;background:linear-gradient(90deg,#FFD700,#6EEBC4);border-radius:2px;transition:width .7s ease;}
+.btn-retry{display:block;width:100%;margin-top:9px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:8px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;}
+.btn-retry:hover{background:rgba(255,255,255,.25);}
+.print-book-header{display:none;}
+@media print{
+  @page{size:A4;margin:12mm 12mm 14mm 12mm;}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  body{background:#fff!important;font-size:9pt;}
+  .ph,.tw,.pb,.submit-wrap,.score-box,.q-result,.q-expl{display:none!important;}
+  .panel{display:block!important;padding:0!important;max-width:100%!important;margin:0!important;page-break-before:always;break-before:page;}
+  .panel:first-of-type{page-break-before:avoid;break-before:avoid;}
+  .print-book-header{display:flex!important;align-items:center;justify-content:space-between;background:#5C3A00!important;color:#fff!important;padding:6px 12px;border-radius:6px;margin-bottom:10px;page-break-inside:avoid;}
+  .pb-title{font-size:10pt;font-weight:900;}
+  .pb-count{font-size:8pt;opacity:.75;}
+  .cat{font-size:7.5pt;margin:8px 0 5px;page-break-after:avoid;}
+  .q-card{box-shadow:none!important;border:1px solid #ccc!important;border-radius:5px!important;margin-bottom:6px!important;page-break-inside:avoid!important;break-inside:avoid!important;}
+  .q-head{padding:6px 9px 3px!important;}
+  .q-num{width:18px!important;height:18px!important;font-size:8pt!important;background:#5C3A00!important;color:#fff!important;}
+  .q-en{font-size:9pt!important;}
+  .options{display:grid!important;grid-template-columns:1fr 1fr!important;gap:3px!important;padding:2px 9px 7px!important;}
+  .opt{padding:4px 7px!important;border:1px solid #ccc!important;font-size:8.5pt!important;background:#fff!important;cursor:default!important;pointer-events:none!important;}
+  .opt.sel,.opt.ok,.opt.bad,.opt.show-ans{border-color:#ccc!important;background:#fff!important;}
+  .opt-key{width:16px!important;height:16px!important;background:#eee!important;color:#666!important;border-color:#ccc!important;font-size:8pt!important;}
+  .opt.sel .opt-key,.opt.ok .opt-key,.opt.bad .opt-key,.opt.show-ans .opt-key{background:#eee!important;color:#666!important;border-color:#ccc!important;}
+}
+body.ps .panel{display:none!important;}
+body.ps .panel.pt{display:block!important;}
+</style>
+</head>
+<body>
+<header class="ph">
+  <div class="badge">📚 Reading Comprehension Quiz · AR 4.0</div>
+  <h1>How to Steal a Dog</h1>
+  <p class="sub">탭 선택 → 풀기 → 채점 후 해설 확인 · Ch.1–21</p>
+  <div class="tw"><div class="tabs"><button class="tab active" id="tab1" onclick="switchTab(1)"><span>Ch.1</span><span class="tc">7Q</span></button><button class="tab" id="tab2" onclick="switchTab(2)"><span>Ch.2</span><span class="tc">7Q</span></button><button class="tab" id="tab3" onclick="switchTab(3)"><span>Ch.3</span><span class="tc">7Q</span></button><button class="tab" id="tab4" onclick="switchTab(4)"><span>Ch.4</span><span class="tc">6Q</span></button><button class="tab" id="tab5" onclick="switchTab(5)"><span>Ch.5</span><span class="tc">7Q</span></button><button class="tab" id="tab6" onclick="switchTab(6)"><span>Ch.6</span><span class="tc">7Q</span></button><button class="tab" id="tab7" onclick="switchTab(7)"><span>Ch.7</span><span class="tc">7Q</span></button><button class="tab" id="tab8" onclick="switchTab(8)"><span>Ch.8</span><span class="tc">7Q</span></button><button class="tab" id="tab9" onclick="switchTab(9)"><span>Ch.9</span><span class="tc">7Q</span></button><button class="tab" id="tab10" onclick="switchTab(10)"><span>Ch.10</span><span class="tc">8Q</span></button><button class="tab" id="tab11" onclick="switchTab(11)"><span>Ch.11</span><span class="tc">7Q</span></button><button class="tab" id="tab12" onclick="switchTab(12)"><span>Ch.12</span><span class="tc">7Q</span></button><button class="tab" id="tab13" onclick="switchTab(13)"><span>Ch.13</span><span class="tc">7Q</span></button><button class="tab" id="tab14" onclick="switchTab(14)"><span>Ch.14</span><span class="tc">7Q</span></button><button class="tab" id="tab15" onclick="switchTab(15)"><span>Ch.15</span><span class="tc">7Q</span></button><button class="tab" id="tab16" onclick="switchTab(16)"><span>Ch.16</span><span class="tc">7Q</span></button><button class="tab" id="tab17" onclick="switchTab(17)"><span>Ch.17</span><span class="tc">7Q</span></button><button class="tab" id="tab18" onclick="switchTab(18)"><span>Ch.18</span><span class="tc">7Q</span></button><button class="tab" id="tab19" onclick="switchTab(19)"><span>Ch.19</span><span class="tc">7Q</span></button><button class="tab" id="tab20" onclick="switchTab(20)"><span>Ch.20</span><span class="tc">7Q</span></button><button class="tab" id="tab21" onclick="switchTab(21)"><span>Ch.21</span><span class="tc">7Q</span></button></div></div>
+</header>
+<div class="pb">
+  <span class="pb-lbl">🖨 인쇄:</span>
+  <button class="btn-p btn-pa" onclick="printAll()">전체 인쇄 (21챕터)</button>
+  <button class="btn-p btn-pc" onclick="printCurrent()">현재 탭만 인쇄</button>
+</div>
+<div class="panel active" id="panel1">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 1</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why does Georgina pretend everything is normal at the bus stop?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She enjoys pretending</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She wants to hide her situation from Luanne</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She is playing a game</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She is not worried</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 조지나는 왜 괜찮은 척할까? → 상황을 숨기려고<br>본문 클루: “pretend everything is normal”<br>해설: 실제로는 정상적인 상황이 아니기 때문에, 친구에게 들키지 않으려고 연기하는 것이다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">What does Luanne do that Georgina finds "the nosiest thing"?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She asks many questions</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She talks to Toby</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She follows Georgina after school</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She tells her mother</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 가장 참견스럽다고 느낀 행동 → 따라온 것<br>본문 클루: “the nosiest thing”, “followed me after school”<br>해설: 남의 행동을 몰래 따라오는 것은 개인 영역을 침범하는 행동이라서 nosy로 표현된다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">Why does Georgina finally cry and tell Luanne everything?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She gets angry at Toby</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She is too tired</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She cannot hide the truth anymore</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She is hurt</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 결국 다 말했을까? → 숨길 수 없음<br>본문 클루: “I started crying”, “I told her everything”<br>해설: 감정이 쌓이다가 터지면서 더 이상 숨기지 못하고 모든 사실을 말하게 된다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">What gives Georgina the idea to steal a dog?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Toby suggests it</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Mama tells her</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She sees a reward sign</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Luanne talks about dogs</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 개를 훔칠 생각 계기 → 보상 광고<br>본문 클루: “reward”<br>해설: 돈이 필요한 상황에서 보상금을 받을 수 있다는 점이 행동의 직접적인 계기가 된다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">Luanne did the <em>nosiest</em> thing. What does "nosy" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>quiet</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>too interested in others' business</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>kind</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>shy</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 루앤은 참견스럽게 나를 따라왔다<br>뜻: 남의 일에 지나치게 관심을 가지는<br>해설: 상대를 따라오며 행동을 관찰하는 모습이 개인 영역을 침범하는 행동이므로 nosy의 의미가 드러난다<br>활용 문장: She is too nosy. 👉 그녀는 너무 참견이 많다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">Mama's hair looked <em>unkempt</em>. What does "unkempt" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>neat</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>messy and not taken care of</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>rich</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>clean</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 엄마의 머리는 지저분하고 정리되지 않아 보였다<br>뜻: 정돈되지 않은<br>해설: messy와 함께 쓰여 머리가 단정하지 않은 상태를 강조한다<br>활용 문장: His hair looks unkempt. 👉 그의 머리는 단정하지 않아 보인다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">She handed me some <em>wadded up</em> bills. What does "wadded up" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>folded neatly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>crumpled into a ball</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>cut</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>cleaned</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그녀는 구겨진 지폐를 건넸다<br>뜻: 구겨진<br>해설: 돈이 펴진 상태가 아니라 손으로 쥐어 뭉쳐진 상태를 나타낸다<br>활용 문장: She held a wadded-up paper. 👉 그녀는 구겨진 종이를 들고 있었다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 1 채점하기</h3>
+  <p>7문제 중 <strong id="cnt1">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn1" onclick="gradePanel(1)">채점하기 🎯</button>
+  <div class="score-box" id="score1">
+    <div class="sc-title">🏆 SCORE — Chapter 1</div>
+    <div class="sc-big" id="big1">—<span>/7</span></div>
+    <div class="sc-pct" id="pct1"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok1">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad1">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip1">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg1"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill1" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(1)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel2">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 2</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why does Georgina tell Toby about her plan?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She trusts him completely</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She has no other choice</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Mama asks her to</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Luanne tells her to</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 토비에게 계획을 말했을까? → 숨길 수 없음<br>본문 클루: 토비가 계속 함께 있는 상황<br>해설: 혼자 행동할 수 없는 상황이라 계획을 공유할 수밖에 없다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">What is Georgina's main goal in stealing a dog?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>To keep it</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>To sell it</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>To get reward money</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>To help animals</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 목표 → 보상금<br>본문 클루: “reward” 반복<br>해설: 개를 가지려는 것이 아니라 돈을 얻기 위한 목적이 핵심이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">Why does Georgina make rules for choosing a dog?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>To make the plan fun</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>To choose a dog that will bring money</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>To help Toby learn</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>To avoid walking</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 규칙을 만들었을까? → 돈 되는 개 선택<br>본문 클루: rules<br>해설: 아무 개가 아니라 보상금을 받을 수 있는 개를 고르기 위한 기준이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">How does Toby react at first?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>He agrees right away</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>He is confused</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>He refuses</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>He gets angry</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 토비 반응 → 혼란<br>본문 클루: 계획이 비현실적임<br>해설: 상황과 계획이 낯설고 위험하기 때문에 자연스럽게 혼란스러워한다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">Don't be a <em>tattletale</em>. What does "tattletale" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>someone who tells on others</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>someone who helps</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>someone who lies</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>someone who listens</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: “고자질하지 마,”라고 말했다<br>뜻: 남의 잘못을 다른 사람에게 알리는 사람<br>해설: 다른 사람의 행동을 어른에게 말하는 상황에서 사용되는 표현이다<br>활용 문장: Don’t be a tattletale. 👉 고자질하지 마</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">The place looked <em>cruddy</em> and dirty. What does "cruddy" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>clean</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>dirty and unpleasant</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>expensive</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>useful</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그곳은 더럽고 상태가 좋지 않았다<br>뜻: 더럽고 상태가 나쁜<br>해설: dirty와 함께 쓰여 장소의 상태가 좋지 않음을 강조한다<br>활용 문장: This place is cruddy. 👉 이곳은 상태가 안 좋다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">I <em>rummaged</em> through the bag. What does "rummaged" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>searched through things</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>threw away</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>cleaned</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>carried</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 나는 무언가를 찾으려고 가방을 뒤졌다<br>뜻: 여기저기 뒤지다<br>해설: 찾기 위해 물건을 정리되지 않은 상태로 이리저리 뒤지는 행동을 나타낸다<br>활용 문장: He rummaged through his bag. 👉 그는 가방을 뒤졌다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 2 채점하기</h3>
+  <p>7문제 중 <strong id="cnt2">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn2" onclick="gradePanel(2)">채점하기 🎯</button>
+  <div class="score-box" id="score2">
+    <div class="sc-title">🏆 SCORE — Chapter 2</div>
+    <div class="sc-big" id="big2">—<span>/7</span></div>
+    <div class="sc-pct" id="pct2"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok2">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad2">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip2">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg2"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill2" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(2)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel3">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 3</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why does Georgina reject the first dog?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>It is too fast</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>It looks sick and uncared for</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>It runs away</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>It is loud</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 첫 번째 개를 선택하지 않았을까? → 약해 보임<br>본문 클루: “scrawny and weak”<br>해설: 건강하지 않아 보이는 개는 가치가 낮아 보상금을 받을 가능성이 적다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">Why does she reject the barking dog?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Too small</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Too noisy</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Too old</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Too friendly</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 짖는 개를 선택하지 않았을까? → 시끄러움<br>본문 클루: “shrill barking”<br>해설: 소리가 크면 들킬 위험이 높아 계획 실행이 어렵다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">Why does she reject the fluffy dog?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Hard to catch</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Not friendly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Owners are not wealthy</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Too big</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 작은 집 개를 선택하지 않았을까? → 돈 적음<br>본문 클루: 집 상태 묘사<br>해설: 집의 상태를 보고 주인의 경제 수준을 판단하여 보상금이 적을 것으로 예상한다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">Why does she choose the Whitmore house dog?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Easy to catch</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Quiet</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Clearly valuable and loved</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Follows her</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 Whitmore 개를 선택했을까? → 돈 많음<br>본문 클루: 큰 집, 좋은 환경<br>해설: 좋은 환경에서 키워지는 개는 가치가 높고 보상금도 클 가능성이 있다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">The dog looked <em>scrawny</em>. What does "scrawny" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>strong</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>thin and weak</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>fast</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>loud</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그 개는 마르고 약해 보였다<br>뜻: 마르고 약한<br>해설: weak와 함께 쓰여 건강하지 않은 상태를 강조한다<br>활용 문장: The dog looks scrawny. 👉 그 개는 마르고 약해 보인다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">It made a <em>shrill</em> barking sound. What does "shrill" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>deep</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>soft</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>high and sharp</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>slow</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그 개는 날카로운 소리로 짖었다<br>뜻: 높고 날카로운<br>해설: 귀에 거슬릴 정도로 높은 소리를 나타낸다<br>활용 문장: She gave a shrill scream. 👉 그녀는 날카롭게 소리쳤다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">The dog <em>slinked away</em>. What does "slinked away" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>ran fast</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>moved away quietly and fearfully</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>jumped</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>stood still</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 개는 조용히 슬금슬금 도망갔다<br>뜻: 조용히 물러나다<br>해설: 눈에 띄지 않게 조심스럽게 움직이는 행동을 나타낸다<br>활용 문장: He slinked away quietly. 👉 그는 조용히 물러났다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 3 채점하기</h3>
+  <p>7문제 중 <strong id="cnt3">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn3" onclick="gradePanel(3)">채점하기 🎯</button>
+  <div class="score-box" id="score3">
+    <div class="sc-title">🏆 SCORE — Chapter 3</div>
+    <div class="sc-big" id="big3">—<span>/7</span></div>
+    <div class="sc-pct" id="pct3"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok3">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad3">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip3">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg3"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill3" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(3)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel4">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 4</span><span class="pb-count">6문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why is Georgina worried about the letter from school?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>It is an invitation</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>It may contain bad news about her performance</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>It is from a friend</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>It is not important</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 학교에서 온 편지를 걱정할까? → 안 좋은 내용일 것 같아서<br>본문 클루: “letter from school”<br>해설: 학교에서 오는 편지는 보통 문제 상황과 관련된 경우가 많아<br>성적이나 행동 문제를 걱정하게 된다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">Why does Georgina return to Whitmore Road?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>To play</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>To watch the dog and plan</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>To meet Luanne</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>To get food</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 Whitmore Road로 다시 갔을까? → 개를 보고 계획을 세우려고<br>본문 클루: 같은 장소를 다시 찾아감<br>해설: 개를 훔치기 전에 상황을 확인하고 계획을 세우는 단계이다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">What does she discover about the gate?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>It is broken</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>It is locked</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>It is not locked</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>It is too high</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 문에서 무엇을 발견했을까? → 잠겨 있지 않다<br>본문 클루: “I lifted the latch”<br>해설: 문이 잠겨 있지 않다는 것은 쉽게 들어갈 수 있다는 뜻으로, 계획<br>실행에 중요한 조건이 된다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">What does she learn from the dog's tag?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Its age</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Its name and owner</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Its favorite food</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Its size</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 목걸이에서 무엇을 알았을까? → 개 이름과 주인<br>본문 클루: dog’s tag<br>해설: 이름과 주인 정보를 알면 개의 가치와 상황을 더 정확히 파악할 수<br>있다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">I lifted the <em>latch</em> on the gate. What does "latch" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>a fastening on a door or gate</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>a sound</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>a rope</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>a handle</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 나는 문에 달린 걸쇠를 들어 올렸다<br>뜻: 문이나 문짝을 여닫는 잠금 장치<br>해설: gate를 여는 행동과 연결되어, 문을 고정하거나 여는 장치라는</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">The dog came <em>trotting</em> toward me. What does "trotting" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>running very fast</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>walking lightly and steadily</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>jumping</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>crawling</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">활용 문장: He opened the latch on the door.<br>그는 문 걸쇠를 열었다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">the messy handwriting <em>scrawled</em> across the front. What does "scrawled" most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>written neatly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>written quickly and carelessly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>erased</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>printed clearly</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 앞면에 글씨가 지저분하게 휘갈겨 쓰여 있었다<br>뜻: 급하게 아무렇게나 쓰다<br>해설: neat하게 정리된 글씨가 아니라, 빠르고 대충 쓴 글씨 상태를 나타낸다<br>활용 문장: He scrawled his name on the paper. 👉 그는 종이에 자기 이름을 휘갈겨 썼다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 4 채점하기</h3>
+  <p>7문제 중 <strong id="cnt4">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn4" onclick="gradePanel(4)">채점하기 🎯</button>
+  <div class="score-box" id="score4">
+    <div class="sc-title">🏆 SCORE — Chapter 4</div>
+    <div class="sc-big" id="big4">—<span>/7</span></div>
+    <div class="sc-pct" id="pct4"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok4">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad4">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip4">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg4"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill4" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(4)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel5">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 5</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why does Georgina not get on the bus?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is late</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She must go to the laundromat</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She is sick</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She forgot</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 버스를 타지 않았을까? → 빨래방에 가야 해서<br>본문 클루: laundromat<br>해설: 집이 없기 때문에 빨래를 하기 위해 다른 장소로 이동해야 하는<br>상황이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">What does she feel watching other students?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>happiness</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>jealousy and sadness</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>anger only</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>nothing</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 다른 학생들을 보며 어떤 감정을 느꼈을까? → 질투와 슬픔<br>본문 클루: 다른 학생들과 비교되는 상황<br>해설: 자신의 어려운 상황과 다른 학생들의 평범한 생활을 비교하며<br>감정이 드러난다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">Why do they go to the laundromat?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>to meet friends</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>to wash clothes</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>to hide</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>to eat</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 빨래방에 갔을까? → 옷을 빨기 위해<br>본문 클루: laundromat<br>해설: 기본적인 생활을 유지하기 위한 행동이다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">What problem does she realize about her plan?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>no dog</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>no money</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>no place to hide the dog</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>no time</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 계획의 문제점은 무엇일까? → 개를 숨길 장소가 없음<br>본문 클루: plan + problem 인식<br>해설: 개를 훔치는 것뿐 아니라 이후 숨길 장소가 필요하다는 점을<br>깨닫는다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">We looked inside the <em>dumpster</em>. What does "dumpster" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>a trash container</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>a box</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>a bag</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>a room</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 우리는 쓰레기통 안을 살펴보았다<br>뜻: 큰 쓰레기통<br>해설: 밖에 놓여 있는 큰 통으로, 버려진 물건을 찾는 상황에서 사용된다<br>활용 문장: They threw the trash into the dumpster.<br>그들은 쓰레기를 큰 쓰레기통에 버렸다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">Mama <em>snapped</em> at me. What does "snapped" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>spoke angrily</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>broke</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>smiled</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>whispered</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 내가 말하자 엄마가 화를 내며 대답했다<br>뜻: 화를 내며 짧게 말하다<br>해설: 감정이 강하게 드러나는 말하기 방식이다<br>활용 문장: He snapped at his brother.<br>그는 형에게 화를 내며 말했다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">Toby <em>raced</em> toward the car. What does "raced" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>walked slowly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>moved very fast</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>jumped</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>looked</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 토비가 차를 향해 빠르게 달려갔다<br>뜻: 매우 빠르게 움직이다<br>해설: 일반적인 걷기가 아니라 급하게 빠르게 이동하는 상황이다<br>활용 문장: She raced to the door.<br>그녀는 문으로 빠르게 달려갔다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 5 채점하기</h3>
+  <p>7문제 중 <strong id="cnt5">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn5" onclick="gradePanel(5)">채점하기 🎯</button>
+  <div class="score-box" id="score5">
+    <div class="sc-title">🏆 SCORE — Chapter 5</div>
+    <div class="sc-big" id="big5">—<span>/7</span></div>
+    <div class="sc-pct" id="pct5"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok5">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad5">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip5">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg5"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill5" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(5)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel6">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 6</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why does Georgina feel uneasy when they arrive at the house?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>It is too small</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>It looks old and broken</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>It is too far from school</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>It is too crowded</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 집에 도착했을 때 불안했을까? → 낡고 상태가 나빠서<br>본문 클루: house 상태 묘사<br>해설: 집의 외형과 상태가 좋지 않아 불안한 감정을 느낀다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">How does Toby react to the house?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>He is excited</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>He ignores it</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>He cries and refuses to go in</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>He laughs</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 토비의 반응 → 울면서 들어가기를 거부함<br>본문 클루: crying<br>해설: 환경이 너무 나빠서 아이가 받아들이기 어려운 상황이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">Why does Mama insist they stay in the house?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>It is free</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>It is temporary and better than nothing</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>It belongs to a friend</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>It is close to work</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 엄마는 이 집에 머물자고 했을까? → 당장은 어쩔 수 없는 선택<br>본문 클루: temporary<br>해설: 완벽하지 않지만 현재 상황에서 가능한 선택이다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">What does Georgina think while lying in the house at night?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She feels happy</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She misses school</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She feels there is no one worse off than her</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She wants to leave town</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 밤에 누워서 어떤 생각을 했을까? → 자신이 가장 힘들다고 느낌<br>본문 클루: “no one worse off than me”<br>해설: 절망적인 상황 속에서 자신이 가장 불행하다고 느끼는 감정이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">It was a <em>ramshackle</em> old house. What does "ramshackle" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>strong and new</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>old and falling apart</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>clean</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>quiet</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그 집은 낡고 무너질 것 같은 상태였다<br>뜻: 낡고 금방이라도 무너질 것 같은<br>해설: 집의 상태가 매우 좋지 않음을 강조하는 표현이다<br>활용 문장: They lived in a ramshackle house.<br>그들은 낡은 집에 살았다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">The place smelled <em>moldy</em>. What does "moldy" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>fresh</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>dirty and covered with mold</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>warm</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>bright</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그곳은 곰팡이 냄새가 났다<br>뜻: 곰팡이가 생긴<br>해설: 오래되고 관리되지 않은 환경에서 나는 냄새를 나타낸다<br>활용 문장: The bread was moldy.<br>그 빵은 곰팡이가 피어 있었다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">The floor was <em>littered</em> with trash. What does "littered" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>cleaned</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>covered with scattered things</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>painted</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>repaired</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 바닥에는 나뭇잎과 쓰레기가 여기저기 흩어져 있었다<br>뜻: 여기저기 흩어져 있는<br>해설: 정리되지 않고 물건이 널려 있는 상태를 나타낸다<br>활용 문장: The street was littered with trash.<br>거리는 쓰레기로 가득했다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 6 채점하기</h3>
+  <p>7문제 중 <strong id="cnt6">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn6" onclick="gradePanel(6)">채점하기 🎯</button>
+  <div class="score-box" id="score6">
+    <div class="sc-title">🏆 SCORE — Chapter 6</div>
+    <div class="sc-big" id="big6">—<span>/7</span></div>
+    <div class="sc-pct" id="pct6"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok6">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad6">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip6">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg6"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill6" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(6)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel7">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 7</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Where does Georgina wash up in the morning?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>school bathroom</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>at home</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>McDonald's bathroom</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>YMCA</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 아침에 어디서 씻을까? → 맥도날드 화장실<br>본문 클루: “McDonald’s bathroom”<br>해설: 집이 없기 때문에 외부 장소에서 기본 생활을 해결하는 상황이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">Why does Georgina get angry at her mother in the car?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is hungry</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She feels her mother is not taking care of them</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She lost her homework</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She is tired</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 엄마에게 화를 낼까? → 돌봐주지 않는다고 느낌<br>본문 클루: 엄마와의 갈등 상황<br>해설: 생활이 힘든 상황에서 보호받지 못한다고 느끼며 감정이 폭발한다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">What problem does Mr. White mention to Georgina?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Her friendship</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Her bad attitude and lack of effort</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Her attendance</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Her behavior at lunch</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: Mr. White가 지적한 문제 → 태도와 노력 부족<br>본문 클루: “bad attitude”, “lack of effort”<br>해설: 단순한 실력이 아니라 학습 태도와 참여 부족이 문제로 드러난다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">Why does Georgina decide again to steal the dog?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is bored</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She wants a pet</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She feels it is the only way to fix their situation</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Toby asks her</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 다시 개를 훔치려 할까? → 상황을 바꿀 방법이라고 생각<br>본문 클루: 해결책을 찾으려는 생각<br>해설: 돈 문제를 해결하기 위한 유일한 방법이라고 믿게 된다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">There were <em>creased</em> marks on my face. What does "creased" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>smoothed</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>marked with lines</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>cleaned</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>painted</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 내 얼굴에는 주름 같은 자국이 있었다<br>뜻: 선이나 주름이 생긴<br>해설: 피부나 종이에 접힌 자국처럼 선이 생긴 상태를 나타낸다<br>활용 문장: The paper was creased.<br>그 종이는 구겨져 있었다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">Mama called me <em>glum</em>. What does "glum" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>happy</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>cheerful</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>sad</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>excited</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 엄마는 내가 우울하고 화가 났다고 말했다<br>뜻: 우울한<br>해설: 기분이 가라앉고 밝지 않은 상태를 나타낸다<br>활용 문장: He looked glum all day.<br>그는 하루 종일 우울해 보였다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">I <em>reckon</em> we'll be okay. What does "reckon" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>forget</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>think or guess</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>shout</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>run</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 나는 우리가 곧 괜찮아질 거라고 생각한다<br>뜻: 생각하다<br>해설: 확실하지 않지만 자신의 판단이나 의견을 말할 때 사용된다<br>활용 문장: I reckon he is right.<br>나는 그가 맞다고 생각한다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 7 채점하기</h3>
+  <p>7문제 중 <strong id="cnt7">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn7" onclick="gradePanel(7)">채점하기 🎯</button>
+  <div class="score-box" id="score7">
+    <div class="sc-title">🏆 SCORE — Chapter 7</div>
+    <div class="sc-big" id="big7">—<span>/7</span></div>
+    <div class="sc-pct" id="pct7"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok7">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad7">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip7">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg7"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill7" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(7)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel8">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 8</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why do other students laugh at Georgina's report?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>It is too long</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>It is made up and very simple</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>It is too difficult</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>It is copied</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 학생들이 웃었을까? → 내용이 지어낸 것이고 단순해서<br>본문 클루: report 내용이 부자연스러움<br>해설: 실제 경험이 아닌 내용을 만들어 써서 다른 학생들이 이상하게<br>느낀다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">Why does Georgina still like Mr. White?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>He gives her good grades</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>He ignores her</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>He is kind to her despite her poor work</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>He tells jokes</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 Mr. White를 좋아할까? → 친절하게 대해줌<br>본문 클루: teacher의 태도<br>해설: 성적과 상관없이 학생을 이해하려는 모습 때문이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">What happens to Mama after work?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She gets promoted</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She gets fired</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She quits</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She changes jobs</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 엄마에게 무슨 일이 일어났을까? → 해고됨<br>본문 클루: job 관련 변화<br>해설: 가족의 경제 상황이 더 어려워지는 중요한 사건이다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">How does Georgina react to Mama's situation?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She comforts her</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She says nothing</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She says hurtful things</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She leaves</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 조지나의 반응 → 상처 주는 말<br>본문 클루: 감정 충돌<br>해설: 힘든 상황에서 감정을 조절하지 못하고 공격적으로 반응한다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">Mama <em>hollered</em> at us. What does "hollered" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>whispered</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>spoke quietly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>shouted loudly</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>laughed</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 엄마가 차 안에서 크게 소리쳤다<br>뜻: 크게 소리치다<br>해설: 화나거나 감정이 강할 때 큰 소리로 말하는 상황이다<br>활용 문장: She hollered for help.<br>그녀는 도움을 요청하며 소리쳤다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">She <em>swiped</em> at her tears. What does "swiped" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>cleaned gently</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>moved quickly across</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>dropped</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>held</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그녀는 눈물을 재빨리 닦아냈다<br>뜻: 빠르게 쓸어내리다<br>해설: 손으로 빠르게 지나가며 무언가를 제거하는 동작이다<br>활용 문장: He swiped the table clean.<br>그는 탁자를 쓱 닦았다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">Her arms were <em>stiff</em>. What does "stiff" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>soft</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>loose</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>tense and hard</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>broken</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그녀의 팔은 굳어 있었다<br>뜻: 굳고 긴장된<br>해설: 몸이 부드럽게 움직이지 않고 긴장된 상태를 나타낸다<br>활용 문장: His legs felt stiff.<br>그의 다리는 뻣뻣했다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 8 채점하기</h3>
+  <p>7문제 중 <strong id="cnt8">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn8" onclick="gradePanel(8)">채점하기 🎯</button>
+  <div class="score-box" id="score8">
+    <div class="sc-title">🏆 SCORE — Chapter 8</div>
+    <div class="sc-big" id="big8">—<span>/7</span></div>
+    <div class="sc-pct" id="pct8"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok8">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad8">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip8">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg8"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill8" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(8)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel9">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 9</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">What does Georgina remember about her past at the church?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>playing games</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>making a basket for her mother</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>meeting a teacher</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>winning a prize</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 교회에서 무엇을 기억할까? → 엄마를 위한 바구니 만들기<br>본문 클루: past memory<br>해설: 가족과 관련된 따뜻한 기억이 드러난다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">Why does Mama refuse to buy pancakes for Toby?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>They are not available</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She is angry</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>They do not have enough money</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Toby is late</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 팬케이크를 사주지 않았을까? → 돈이 없음<br>본문 클루: 돈 부족 상황<br>해설: 경제적 어려움이 일상적인 선택에도 영향을 준다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">What idea does Georgina finally get about hiding the dog?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>at Luanne's house</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>at the school</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>at the boarded-up house</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>in the car</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 개를 숨길 장소 → 폐가<br>본문 클루: boarded-up house<br>해설: 아무도 사용하지 않는 장소라 숨기기에 적합하다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">What problem does Georgina face with Luanne?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>They fight</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Luanne refuses to help her</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Luanne is busy and distant</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Luanne moves away</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 루앤과의 문제 → 거리감<br>본문 클루: 관계 변화<br>해설: 상황이 달라지면서 친구 관계도 어색해진다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">The flowers had <em>wilted</em>. What does "wilted" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>fresh</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>dried and drooping</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>bright</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>clean</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 꽃이 시들어 있었다<br>뜻: 시든<br>해설: 물이 부족하거나 시간이 지나 힘을 잃은 상태이다<br>활용 문장: The plant wilted in the heat.<br>식물이 더위에 시들었다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">The bread had <em>mold</em> on it. What does "mold" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>fresh</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>spoiled growth</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>clean smell</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>dry</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 빵에 곰팡이가 생겼다<br>뜻: 곰팡이<br>해설: 오래된 음식에서 생기는 부패 상태를 나타낸다<br>활용 문장: There was mold on the bread.<br>빵에 곰팡이가 있었다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">We searched in the <em>gutter</em>. What does "gutter" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>roof</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>street edge</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>wall</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>window</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 우리는 길 가장자리에서 찾았다<br>뜻: 길 가장자리 배수로<br>해설: 길 옆에 물이 흐르도록 만든 공간을 의미한다<br>활용 문장: Water ran through the gutter.<br>물이 배수로를 따라 흘렀다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 9 채점하기</h3>
+  <p>7문제 중 <strong id="cnt9">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn9" onclick="gradePanel(9)">채점하기 🎯</button>
+  <div class="score-box" id="score9">
+    <div class="sc-title">🏆 SCORE — Chapter 9</div>
+    <div class="sc-big" id="big9">—<span>/7</span></div>
+    <div class="sc-pct" id="pct9"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok9">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad9">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip9">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg9"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill9" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(9)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel10">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 10</span><span class="pb-count">8문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">What is Toby's role when they go to steal the dog?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>to open the gate</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>to distract people</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>to be the lookout</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>to carry the dog</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 토비의 역할 → 망보기<br>본문 클루: lookout<br>해설: 위험을 확인하고 신호를 주는 역할이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">How does Georgina get Willy out of the yard?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She calls the owner</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She opens the gate and pulls him out</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She throws food</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She chases him</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 개를 어떻게 데려왔을까? → 문을 열고 끌어냄<br>본문 클루: gate + action<br>해설: 실제로 계획을 실행하는 장면이다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">Why does Georgina remove Willy's collar?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>It is dirty</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>It is too tight</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>It could reveal the owner</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Willy does not like it</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 목걸이를 제거했을까? → 주인을 숨기기 위해<br>본문 클루: tag 정보<br>해설: 신원을 숨기기 위한 행동이다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">Where do they take Willy?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>to the car</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>to the school</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>to the old boarded-up house</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>to Luanne's house</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 어디로 데려갔을까? → 폐가<br>본문 클루: boarded-up house<br>해설: 숨기기에 적절한 장소이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">What concern does Toby raise at the end?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Willy will run away</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Willy may be hungry and thirsty</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Willy is too loud</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Willy is sick</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 토비의 걱정 → 개가 배고프고 목마를까 봐<br>본문 클루: dog 상태<br>해설: 계획 속에서도 아이의 순수한 걱정이 드러난다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">Toby acted as the <em>lookout</em>. What does "lookout" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>a place</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>a person who watches for danger</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>a tool</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>a house</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 토비는 망보는 역할을 했다<br>뜻: 위험을 살피는 사람<br>해설: 다른 사람이 행동하는 동안 주변을 살피는 역할이다<br>활용 문장: He stood as a lookout.<br>그는 망을 보며 서 있었다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">My heart was <em>pounding</em>. What does "pounding" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>beating strongly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>moving slowly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>jumping</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>falling</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 내 심장이 세게 뛰었다<br>뜻: 강하게 뛰는<br>해설: 긴장하거나 무서울 때 심장이 빠르고 강하게 뛰는 상태이다<br>활용 문장: My heart was pounding fast.<br>내 심장은 빠르게 뛰고 있었다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">8</div>
+    <div class="q-en">The wood was <em>rotten</em>. What does "rotten" mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>fresh</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>spoiled or decayed</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>clean</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>strong</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 나무가 썩어 있었다<br>뜻: 썩은<br>해설: 오래되어 부패한 상태를 나타낸다<br>활용 문장: The fruit was rotten.<br>그 과일은 썩어 있었다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 10 채점하기</h3>
+  <p>8문제 중 <strong id="cnt10">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn10" onclick="gradePanel(10)">채점하기 🎯</button>
+  <div class="score-box" id="score10">
+    <div class="sc-title">🏆 SCORE — Chapter 10</div>
+    <div class="sc-big" id="big10">—<span>/8</span></div>
+    <div class="sc-pct" id="pct10"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok10">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad10">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip10">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg10"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill10" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(10)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel11">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 11</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why is Mama excited about her new job?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She meets new people</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She can bring home food</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She works less</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She earns more money</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 엄마가 왜 새 일을 좋아할까? → 음식을 가져올 수 있어서<br>본문 클루: 음식 가져오는 상황<br>해설: 경제적으로 어려운 상황에서 음식은 중요한 자원이기 때문에<br>기뻐한다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">Why does Georgina write "Step 5" in her notebook?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>To remember school work</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>To plan what to do after stealing the dog</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>To write a story</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>To help Toby study</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 “Step 5”를 쓸까? → 계획의 다음 단계<br>본문 클루: step<br>해설: 개를 훔친 후 무엇을 할지 계획을 이어가는 과정이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">What does Georgina worry about at night?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>School homework</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Willy's safety and condition</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Mama's job</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Luanne</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 밤에 무엇을 걱정할까? → 윌리 상태<br>본문 클루: Willy 관련 생각<br>해설: 이미 개를 훔친 후 책임과 걱정이 생긴 상태이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">Why is Georgina disappointed on the way to school?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is tired</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She cannot find any reward signs</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She is late</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She loses her notebook</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 실망할까? → 보상 광고 없음<br>본문 클루: reward sign 없음<br>해설: 계획의 핵심 조건이 없어서 실망한다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">What does <em>soggy</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>dry</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>wet and soft</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>hard</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>sweet</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 팬케이크가 시럽 때문에 축축해졌다<br>뜻: 물기 때문에 부드럽고 젖은 상태<br>해설: 액체를 흡수해 형태가 흐물해진 상태를 나타낸다<br>활용 문장: The bread is soggy.<br>빵이 축축하다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">What does <em>fluttered</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>stopped</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>fell down</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>moved lightly</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>broke</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 비가 가볍게 움직이며 떨어졌다<br>뜻: 가볍게 흔들리며 움직이다<br>해설: 작고 가벼운 것이 부드럽게 움직이는 상태를 나타낸다<br>활용 문장: The leaves fluttered in the wind.<br>나뭇잎이 바람에 흔들렸다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">What does <em>gobble</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>eat quickly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>drink slowly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>walk</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>throw</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 윌리가 음식을 빠르게 먹었다<br>뜻: 급하게 먹다<br>해설: 천천히 먹는 것이 아니라 서둘러 먹는 행동이다<br>활용 문장: He gobbled his food.<br>그는 음식을 허겁지겁 먹었다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 11 채점하기</h3>
+  <p>7문제 중 <strong id="cnt11">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn11" onclick="gradePanel(11)">채점하기 🎯</button>
+  <div class="score-box" id="score11">
+    <div class="sc-title">🏆 SCORE — Chapter 11</div>
+    <div class="sc-big" id="big11">—<span>/7</span></div>
+    <div class="sc-pct" id="pct11"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok11">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad11">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip11">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg11"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill11" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(11)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel12">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 12</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why are Georgina and Toby frustrated?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>They lost Willy</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>They cannot find any reward signs</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>They are late</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>They are tired</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 좌절할까? → 광고 없음<br>본문 클루: sign 없음<br>해설: 계획이 진행되지 않아 답답함을 느낀다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">What does Carmella say about Willy?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>He is aggressive</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>He is very smart</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>He is old</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>He is sick</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 윌리에 대한 설명 → 똑똑함<br>본문 클루: smart<br>해설: 개의 가치와 특징을 보여준다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">What surprises Georgina about the house?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>It is big</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>It is messy</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>It is empty</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>It is new</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 집 상태 → 어지럽고 가난해 보임<br>본문 클루: messy<br>해설: 예상과 달라 혼란을 느낀다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">Why does Georgina feel confused about her plan?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She forgets it</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Carmella is not rich</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Toby refuses</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Willy runs away</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 혼란스러울까? → 부자가 아님<br>본문 클루: 집 상태<br>해설: 계획의 전제가 흔들린다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">What does <em>dreary</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>bright</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>dull and sad</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>clean</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>fast</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 집 안이 어둡고 우울했다<br>뜻: 밝지 않고 기분이 가라앉는<br>해설: 분위기가 침울한 상태를 나타낸다<br>활용 문장: It was a dreary day.<br>우울한 날이었다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">What does <em>cluttered</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>empty</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>clean</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>full of messy things</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>quiet</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 방이 물건으로 어지럽게 가득했다<br>뜻: 물건이 많아 정리되지 않은<br>해설: 공간이 복잡하고 정돈되지 않은 상태이다<br>활용 문장: The desk is cluttered.<br>책상이 어지럽다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">What does <em>swaying</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>moving side to side</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>falling</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>breaking</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>jumping</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 몸이 좌우로 흔들렸다<br>뜻: 좌우로 흔들리다<br>해설: 중심이 불안정한 상태를 나타낸다<br>활용 문장: The tree was swaying.<br>나무가 흔들렸다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 12 채점하기</h3>
+  <p>7문제 중 <strong id="cnt12">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn12" onclick="gradePanel(12)">채점하기 🎯</button>
+  <div class="score-box" id="score12">
+    <div class="sc-title">🏆 SCORE — Chapter 12</div>
+    <div class="sc-big" id="big12">—<span>/7</span></div>
+    <div class="sc-pct" id="pct12"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok12">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad12">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip12">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg12"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill12" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(12)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel13">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 13</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why does Georgina leave school?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is sick</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She wants to see Willy</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She is angry</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She is bored</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 학교를 나갈까? → 윌리를 보러<br>본문 클루: Willy<br>해설: 개에 대한 걱정이 행동으로 이어진다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">Who does she meet at the house?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>A teacher</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>A police officer</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Mookie</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Carmella</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 누구를 만날까? → Mookie<br>본문 클루: 등장 인물<br>해설: 새로운 갈등 요소 등장</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">What is special about Mookie?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>He is rich</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>He has missing fingers</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>He owns the house</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>He knows Mama</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 특징 → 손가락 없음<br>본문 클루: 신체 묘사<br>해설: 인물의 중요한 특징</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">Why does Georgina lie to him?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is scared</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She wants money</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She hides the truth about Willy</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She is joking</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 거짓말할까? → 사실 숨기기<br>본문 클루: 상황 숨김<br>해설: 죄책감과 두려움이 반영된 행동</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">What does <em>darting</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>walking slowly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>moving quickly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>sitting</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>falling</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 빠르게 움직였다<br>뜻: 갑자기 빠르게 움직이다<br>해설: 짧고 빠른 이동을 나타낸다<br>활용 문장: The cat darted away.<br>고양이가 재빨리 도망갔다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">What does <em>pounding</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>beating strongly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>stopping</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>jumping</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>sliding</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 심장이 강하게 뛰었다<br>뜻: 세게 뛰는<br>해설: 긴장이나 두려움의 상태를 나타낸다<br>활용 문장: My heart was pounding.<br>심장이 세게 뛰었다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">What does <em>prying</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>helping</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>hiding</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>interfering</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>running</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 남의 일에 간섭하는 행동<br>뜻: 남의 일에 간섭하는<br>해설: 개인적인 영역을 침범하는 행동이다<br>활용 문장: Stop prying into my life.<br>내 일에 간섭하지 마</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 13 채점하기</h3>
+  <p>7문제 중 <strong id="cnt13">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn13" onclick="gradePanel(13)">채점하기 🎯</button>
+  <div class="score-box" id="score13">
+    <div class="sc-title">🏆 SCORE — Chapter 13</div>
+    <div class="sc-big" id="big13">—<span>/7</span></div>
+    <div class="sc-pct" id="pct13"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok13">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad13">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip13">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg13"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill13" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(13)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel14">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 14</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why is Carmella upset at the beginning of the chapter?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is sick</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She cannot find Willy and has no money</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She lost her house</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She argues with Georgina</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 카멜라는 힘들어할까? → 개도 없고 돈도 없음<br>본문 클루: 돈 없음 + Willy 없음<br>해설: 개를 잃은 상황과 경제적 문제 때문에 절망적인 상태이다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">What does Carmella decide to do about Willy?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Give up</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Call the police</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Put up reward signs</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Buy another dog</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 카멜라는 무엇을 하기로 할까? → 전단지 붙이기<br>본문 클루: “put those signs up”<br>해설: 개를 찾기 위한 적극적인 행동이다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">What problem does Georgina keep thinking about while putting up signs?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>School</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Her mother</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>"What am I doing?"</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Toby</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 조지나가 계속 떠올린 생각 → “내가 지금 뭐 하는 거지?”<br>본문 클루: “what in the world are you doing georgina”<br>해설: 죄책감과 자기 의심이 드러난다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">Why does Georgina feel sick when she sees the sign later?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is hungry</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She realizes the seriousness of her actions</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She is tired</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She sees Toby</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 속이 불편했을까? → 자신의 행동 때문<br>본문 클루: sign을 보고 불편함<br>해설: 죄책감이 신체 반응으로 나타난다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">What does <em>squeezed</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>pushed into a tight space</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>cleaned</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>lifted</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>opened</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 우리는 좁은 공간에 끼어 앉아 있었다<br>뜻: 좁은 공간에 밀어 넣어진<br>해설: 공간이 부족해 서로 가까이 붙어 있는 상태이다<br>활용 문장: We were squeezed into the car.<br>우리는 차 안에 꽉 끼어 앉았다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">What does <em>stifle</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>hide or stop a sound</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>run</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>jump</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>clean</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 토비는 웃음을 참으려고 했다<br>뜻: 소리를 억누르다<br>해설: 감정이나 소리를 밖으로 나오지 않게 막는 행동이다<br>활용 문장: He tried to stifle a laugh.<br>그는 웃음을 참으려 했다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">What does <em>chugging</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>moving smoothly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>making repeated low sounds while moving</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>stopping</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>falling</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 차가 덜컹거리며 움직였다<br>뜻: 덜컹거리며 움직이다<br>해설: 엔진이 일정하지 않은 소리를 내며 움직이는 상태이다<br>활용 문장: The train was chugging along.<br>기차가 덜컹거리며 움직였다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 14 채점하기</h3>
+  <p>7문제 중 <strong id="cnt14">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn14" onclick="gradePanel(14)">채점하기 🎯</button>
+  <div class="score-box" id="score14">
+    <div class="sc-title">🏆 SCORE — Chapter 14</div>
+    <div class="sc-big" id="big14">—<span>/7</span></div>
+    <div class="sc-pct" id="pct14"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok14">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad14">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip14">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg14"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill14" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(14)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel15">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 15</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why does Georgina warn Toby about Mookie?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She wants to scare him</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She wants him to be prepared and not panic</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She is joking</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She is angry</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 토비에게 무키에 대해 말해줄까? → 당황하지 않게 하려고<br>본문 클루: 미리 경고하는 행동<br>해설: 갑작스러운 상황에서 토비가 놀라지 않도록 대비시키려는 행동이다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">What is Mookie doing when they arrive?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Sleeping under a tarp</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Cooking inside the house</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Talking to someone</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Fixing something</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 도착했을 때 무키는 무엇을 하고 있었을까? → 타프 아래에서 자고 있음<br>본문 클루: tarp 아래<br>해설: 무키는 임시로 머무는 생활을 하고 있는 인물임을 보여준다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">How does Toby react to Mookie's hand?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>He screams</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>He runs away</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>He reacts calmly</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>He cries</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 토비의 반응 → 침착함<br>본문 클루: 놀라지 않는 반응<br>해설: 예상과 달리 토비는 무키의 외형에 크게 동요하지 않는다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">Why does Georgina suddenly shout at Toby?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is tired</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She feels guilty and stressed</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Toby is wrong</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Mookie tells her to</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 갑자기 토비에게 소리칠까? → 죄책감과 스트레스<br>본문 클루: 감정이 쌓인 상태<br>해설: 상황에 대한 불안과 죄책감이 다른 사람에게 표출된 것이다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">What does <em>snort</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>make a sudden noise through the nose</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>laugh loudly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>shout</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>cry</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그는 코로 갑자기 소리를 냈다<br>뜻: 코로 푸르륵 소리를 내다<br>해설: 감정 표현이나 반응으로 짧고 강한 소리를 내는 행동이다<br>활용 문장: He snorted in anger. 👉 그는 화가 나서 코웃음을 쳤다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">What does <em>gobble</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>eat quickly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>walk slowly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>throw</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>sleep</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그는 음식을 급하게 먹었다<br>뜻: 허겁지겁 먹다<br>해설: 천천히 먹는 것이 아니라 빠르게 삼키듯 먹는 행동이다<br>활용 문장: She gobbled her lunch. 👉 그녀는 점심을 허겁지겁 먹었다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">What does <em>slink</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>run loudly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>move quietly and fearfully</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>jump</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>stop</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그는 조용히 슬금슬금 움직였다<br>뜻: 조용히 몰래 움직이다<br>해설: 눈에 띄지 않게 조심스럽게 이동하는 행동이다<br>활용 문장: The dog slinked away. 👉 개가 슬금슬금 도망갔다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 15 채점하기</h3>
+  <p>7문제 중 <strong id="cnt15">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn15" onclick="gradePanel(15)">채점하기 🎯</button>
+  <div class="score-box" id="score15">
+    <div class="sc-title">🏆 SCORE — Chapter 15</div>
+    <div class="sc-big" id="big15">—<span>/7</span></div>
+    <div class="sc-pct" id="pct15"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok15">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad15">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip15">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg15"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill15" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(15)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel16">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 16</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why does Georgina go back to see Carmella?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>To apologize</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>To check if there is reward money</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>To return Willy</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>To meet Toby</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 다시 카멜라를 찾아갈까? → 보상금을 확인하려고<br>본문 클루: reward 관련 생각<br>해설: 아직도 돈을 얻을 수 있을지 확인하려는 마음이 남아 있다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">What shocks Georgina about the reward?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>It increases</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>It disappears</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>It drops to fifty dollars</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>It is fake</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 무엇이 충격이었을까? → 보상금이 50달러로 줄어듦<br>본문 클루: reward amount<br>해설: 기대했던 것보다 훨씬 적은 금액이라 계획이 흔들린다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">Why does Georgina feel uncomfortable talking to Carmella?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is tired</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She feels guilty</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She is angry</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She is bored</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 불편함을 느낄까? → 죄책감<br>본문 클루: 대화 중 긴장<br>해설: 자신이 한 행동을 숨기고 있기 때문에 마음이 불편하다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">What request does Carmella make to Georgina?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Find a new dog</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Check the woods for Willy</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Call the police</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Talk to Gertie</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 카멜라의 부탁 → 숲을 확인해달라<br>본문 클루: woods<br>해설: 개를 찾기 위해 주변 환경까지 확인하려는 행동이다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">What does <em>wheezy</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>breathing with difficulty</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>laughing</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>shouting</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>singing</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그녀의 숨소리가 거칠고 힘들어 보였다<br>뜻: 숨쉬기 힘든<br>해설: 호흡이 고르지 않고 힘들게 이루어지는 상태이다<br>활용 문장: He sounded wheezy. 👉 그는 숨쉬기 힘들어 보였다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">What does <em>puckering</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>tightening into folds</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>opening wide</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>shaking</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>moving</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 입 주변이 오므라들었다<br>뜻: 주름지며 오므라들다<br>해설: 피부나 입이 안쪽으로 모이며 접히는 상태이다<br>활용 문장: Her lips were puckering. 👉 그녀의 입술이 오므라들었다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">What does <em>darted</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>moved slowly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>moved quickly and suddenly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>stopped</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>sat</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 그는 갑자기 빠르게 움직였다<br>뜻: 재빨리 움직이다<br>해설: 짧은 순간에 빠르게 이동하는 동작이다<br>활용 문장: The boy darted across the street. 👉 소년이 길을 재빨리 건넜다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 16 채점하기</h3>
+  <p>7문제 중 <strong id="cnt16">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn16" onclick="gradePanel(16)">채점하기 🎯</button>
+  <div class="score-box" id="score16">
+    <div class="sc-title">🏆 SCORE — Chapter 16</div>
+    <div class="sc-big" id="big16">—<span>/7</span></div>
+    <div class="sc-pct" id="pct16"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok16">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad16">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip16">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg16"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill16" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(16)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel17">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 17</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why does Georgina feel bad at school?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She fails a test</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Kirby Bryce calls her a name and others laugh</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She forgets homework</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She fights with Luanne</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 학교에서 기분이 나쁠까? → 놀림을 당해서<br>본문 클루: “called me a dirtbag… everybody laughed”<br>해설: 친구들의 조롱과 웃음이 조지나에게 상처를 준다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">What problem happens with the car at night?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>It runs out of gas</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>It makes noise</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>It will not start</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>It breaks a tire</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 차에 무슨 문제가 생겼을까? → 시동이 걸리지 않음<br>본문 클루: “click… and then nothing”<br>해설: 반복해서 시도해도 작동하지 않아 상황이 더 악화된다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">Why does Georgina hide when she sees Mookie?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is angry</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She is afraid Mama will see him</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She is tired</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She wants to talk to him later</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 무키를 보고 숨을까? → 들킬까 봐<br>본문 클루: “ducked down real quick”<br>해설: 엄마에게 상황이 드러나는 것을 피하려는 행동이다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">What does Toby worry about regarding Willy?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>He is sick</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>He will run away</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>He wants to go home</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>He is too loud</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 토비의 걱정 → 윌리가 집에 가고 싶어할 것<br>본문 클루: “I bet willy wants to go home”<br>해설: 토비는 개의 입장에서 생각하며 감정적으로 반응한다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">What does <em>slouched</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>sat up straight</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>sat in a bent, lazy way</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>ran</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>jumped</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 나는 몸을 낮추고 구부정하게 앉았다<br>뜻: 몸을 구부리고 힘없이 앉는<br>해설: 자신을 숨기거나 눈에 띄지 않으려는 자세이다<br>활용 문장: He slouched in his chair.<br>그는 의자에 구부정하게 앉았다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">What does <em>yanked</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>pulled quickly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>dropped</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>touched</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>carried</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 나는 그의 티셔츠를 세게 잡아당겼다<br>뜻: 갑자기 세게 잡아당기다<br>해설: 빠르고 강한 힘으로 끌어당기는 동작이다<br>활용 문장: She yanked the door open.<br>그녀는 문을 확 열었다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">What does <em>darted</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>moved slowly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>moved quickly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>stopped</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>turned</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 토비가 재빨리 앞으로 달려갔다<br>뜻: 갑자기 빠르게 움직이다<br>해설: 짧은 순간에 빠르게 이동하는 동작이다<br>활용 문장: The cat darted away.<br>고양이가 재빨리 도망갔다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 17 채점하기</h3>
+  <p>7문제 중 <strong id="cnt17">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn17" onclick="gradePanel(17)">채점하기 🎯</button>
+  <div class="score-box" id="score17">
+    <div class="sc-title">🏆 SCORE — Chapter 17</div>
+    <div class="sc-big" id="big17">—<span>/7</span></div>
+    <div class="sc-pct" id="pct17"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok17">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad17">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip17">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg17"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill17" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(17)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel18">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 18</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">What finally happens to the car?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>It breaks completely</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>It is sold</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>It suddenly starts working</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>It is repaired</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 차에 어떤 일이 생겼을까? → 갑자기 시동이 걸림<br>본문 클루: “started with a roar”<br>해설: 계속 실패하다가 अचानक 성공하면서 상황이 바뀐다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">Why does Georgina feel conflicted while riding in the car?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is tired</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She is thinking about Willy, Carmella, and Mookie</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She is hungry</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She is bored</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 마음이 복잡할까? → 여러 생각이 동시에 떠오름<br>본문 클루: Willy, Carmella, Mookie 생각<br>해설: 행동에 대한 죄책감과 고민이 동시에 나타난다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">What memory does Georgina recall about Luanne?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>A fight</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>A school project</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Sharing secrets in a tent</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>A birthday party</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 어떤 기억을 떠올릴까? → 루앤과의 비밀 이야기<br>본문 클루: “shared our secrets”<br>해설: 과거의 순수한 기억과 현재 상황이 대비된다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">Why does Georgina feel worse about her situation now?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She lost money</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She lied about homework</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Stealing Willy is now her worst mistake</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She failed a test</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 더 힘들어졌을까? → 개를 훔친 일이 가장 큰 잘못<br>본문 클루: “worst thing I’d ever done… stolen a dog”<br>해설: 자신의 행동을 돌아보며 죄책감이 깊어진다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">What does <em>whirled</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>stopped</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>spun or moved quickly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>fell</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>broke</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 엔진이 빠르게 돌아가기 시작했다<br>뜻: 빠르게 돌거나 움직이다<br>해설: 정지 상태에서 빠르게 움직임이 시작되는 상황이다<br>활용 문장: The wheels whirled fast.<br>바퀴가 빠르게 돌았다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">What does <em>croaked</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>sang</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>made a deep rough sound</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>whispered</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>laughed</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 개구리가 거친 소리로 울었다<br>뜻: 거칠고 낮은 소리를 내다<br>해설: 개구리처럼 굵고 탁한 소리를 나타낸다<br>활용 문장: The frog croaked loudly.<br>개구리가 크게 울었다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">What does <em>soothing</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>loud</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>calming</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>fast</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>bright</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 물소리가 마음을 편안하게 했다<br>뜻: 마음을 진정시키는<br>해설: 긴장이나 불안을 줄여주는 상태를 나타낸다<br>활용 문장: Music can be soothing.<br>음악은 마음을 편안하게 한다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 18 채점하기</h3>
+  <p>7문제 중 <strong id="cnt18">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn18" onclick="gradePanel(18)">채점하기 🎯</button>
+  <div class="score-box" id="score18">
+    <div class="sc-title">🏆 SCORE — Chapter 18</div>
+    <div class="sc-big" id="big18">—<span>/7</span></div>
+    <div class="sc-pct" id="pct18"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok18">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad18">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip18">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg18"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill18" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(18)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel19">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 19</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why does Georgina go to the nurse's office?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She is pretending</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She has a real stomachache</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She is tired</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She skips class</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 보건실에 갔을까? → 실제로 배가 아파서<br>본문 클루: “I really did have a stomachache”<br>해설: 거짓이 아니라 죄책감으로 인한 실제 신체 반응이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">What new step does Georgina add to her notebook?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Step 7</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Step 8</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Step 9</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Step 10</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 어떤 새로운 단계를 썼을까? → Step 8<br>본문 클루: “step eight”<br>해설: 개를 돌려줄지에 대한 선택을 정리하는 단계이다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">What problem does Georgina discover at the old house?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Mookie is there</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Toby is gone</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Willy is missing</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>The house is broken</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 무엇을 발견했을까? → 윌리가 사라짐<br>본문 클루: “willy was gone”<br>해설: 이야기의 긴장이 최고조로 올라가는 장면이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">Why does Georgina first blame Mookie?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She saw him take Willy</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>She thinks he is strange and responsible</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Toby tells her</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Mama tells her</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 무키를 의심할까? → 책임을 돌림<br>본문 클루: “it’s mookie’s fault”<br>해설: 자신의 행동 대신 다른 사람을 탓하는 반응이다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">What does <em>jabbering</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>speaking quickly and continuously</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>whispering</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>shouting</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>singing</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 토비가 계속 쉴 새 없이 말을 했다<br>뜻: 계속 빠르게 말하는<br>해설: 멈추지 않고 계속 말하는 상태를 나타낸다<br>활용 문장: He kept jabbering all day.<br>그는 하루 종일 계속 떠들었다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">What does <em>snatch</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>take quickly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>drop</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>hold</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>push</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 나는 윌리를 빨리 붙잡고 싶었다<br>뜻: 재빨리 잡다<br>해설: 빠르고 갑작스럽게 행동하는 동작이다<br>활용 문장: She snatched the bag.<br>그녀는 가방을 낚아챘다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">What does <em>bawling</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>laughing</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>crying loudly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>whispering</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>running</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 토비가 크게 울기 시작했다<br>뜻: 크게 울다<br>해설: 감정이 크게 터져 나오는 울음이다<br>활용 문장: The baby was bawling.<br>아기가 크게 울고 있었다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 19 채점하기</h3>
+  <p>7문제 중 <strong id="cnt19">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn19" onclick="gradePanel(19)">채점하기 🎯</button>
+  <div class="score-box" id="score19">
+    <div class="sc-title">🏆 SCORE — Chapter 19</div>
+    <div class="sc-big" id="big19">—<span>/7</span></div>
+    <div class="sc-pct" id="pct19"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok19">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad19">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip19">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg19"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill19" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(19)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel20">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 20</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">Why does Georgina go back to the old house alone?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>To hide</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>To return Willy</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>To meet Toby</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>To play</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 혼자 갔을까? → 개를 돌려주기 위해<br>본문 클루: “ready to go home”<br>해설: 결심을 행동으로 옮기는 장면이다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">What important object does Georgina find?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>money</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>a leash</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Willy's collar</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>food</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 무엇을 발견했을까? → 목걸이<br>본문 클루: “green dog collar”<br>해설: 무키가 진실을 알고 있었다는 단서이다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">Why does Georgina feel ashamed?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>She lied to Toby</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Mookie knew the truth about Willy</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>She lost the dog</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>She failed school</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 왜 부끄러웠을까? → 진실이 드러남<br>본문 클루: collar + name<br>해설: 자신의 행동이 드러났다는 사실이 감정으로 이어진다</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">What does Georgina finally do at Carmella's house?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Leaves quickly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Lies again</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Tells the truth</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Runs away</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 결국 무엇을 했을까? → 진실을 말함<br>본문 클루: “I stole Willy”<br>해설: 이야기의 핵심 전환점이다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">What does <em>snuffling</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>smelling and breathing through the nose</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>running</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>barking loudly</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>jumping</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 윌리가 코로 냄새를 맡았다<br>뜻: 코로 킁킁거리다<br>해설: 냄새를 맡으며 숨을 들이마시는 행동이다<br>활용 문장: The dog was snuffling around.<br>개가 킁킁거리며 냄새를 맡았다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">What does <em>dashed</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>walked slowly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>moved quickly</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>stopped</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>fell</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 윌리가 빠르게 달려갔다<br>뜻: 빠르게 움직이다<br>해설: 짧은 순간에 빠르게 이동하는 동작이다<br>활용 문장: He dashed out of the room.<br>그는 방 밖으로 달려 나갔다</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">What does <em>splotchy</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>smooth</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>marked with uneven spots</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>clean</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>bright</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 얼굴이 얼룩덜룩했다<br>뜻: 얼룩이 있는<br>해설: 색이 고르지 않고 군데군데 다른 상태이다<br>활용 문장: Her face looked splotchy.<br>그녀의 얼굴은 얼룩져 보였다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 20 채점하기</h3>
+  <p>7문제 중 <strong id="cnt20">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn20" onclick="gradePanel(20)">채점하기 🎯</button>
+  <div class="score-box" id="score20">
+    <div class="sc-title">🏆 SCORE — Chapter 20</div>
+    <div class="sc-big" id="big20">—<span>/7</span></div>
+    <div class="sc-pct" id="pct20"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok20">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad20">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip20">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg20"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill20" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(20)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div><div class="panel" id="panel21">
+<div class="print-book-header"><span class="pb-title">How to Steal a Dog — Chapter 21</span><span class="pb-count">7문제</span></div>
+<div class="cat">📖 Comprehension &amp; 🧠 Vocabulary</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">1</div>
+    <div class="q-en">What major change happens to Georgina's family?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>They get a new car</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>They move into a real house</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>They get a new dog</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>They change school</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 어떤 변화가 생겼을까? → 집으로 이사<br>본문 클루: “we are moving… house”<br>해설: 이야기의 해결 단계</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">2</div>
+    <div class="q-en">How does Georgina feel about the new house?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>disappointed</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>confused</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>excited and hopeful</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>angry</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 집에 대한 감정 → 기대와 기쁨<br>본문 클루: excitement<br>해설: 정상적인 삶으로 돌아가는 희망</div>
+</div>
+<div class="q-card" data-ans="c">
+  <div class="q-head">
+    <div class="q-num">3</div>
+    <div class="q-en">What does Georgina decide about her past actions?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>It was correct</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>It was not important</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>It was wrong</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>It was funny</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: 과거 행동 평가 → 잘못<br>본문 클루: regret<br>해설: 도덕적 깨달음</div>
+</div>
+<div class="q-card" data-ans="b">
+  <div class="q-head">
+    <div class="q-num">4</div>
+    <div class="q-en">What does Georgina write in Step 9?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>Steal carefully</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>Do not steal a dog</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>Find a better plan</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>Hide better</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">해석: Step 9 → 훔치지 말 것<br>본문 클루: “do not steal a dog”<br>해설: 이야기의 핵심 메시지</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">5</div>
+    <div class="q-en">What does <em>flutter</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>move lightly</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>fall</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>break</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>stop</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 커튼이 가볍게 움직였다<br>뜻: 가볍게 흔들리다<br>해설: 부드럽고 작은 움직임이다<br>활용 문장: The curtain fluttered.<br>커튼이 살랑거렸다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">6</div>
+    <div class="q-en">What does <em>buzzed</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>made a low continuous sound</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>shouted</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>sang</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>ran</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 벌레가 윙윙 소리를 냈다<br>뜻: 윙윙 소리를 내다<br>해설: 지속적인 낮은 소리이다<br>활용 문장: The bees buzzed.<br>벌들이 윙윙거렸다</div>
+</div>
+<div class="q-card" data-ans="a">
+  <div class="q-head">
+    <div class="q-num">7</div>
+    <div class="q-en">What does <em>settled</em> most nearly mean?</div>
+  </div>
+  <div class="options"><div class="opt" data-k="a" onclick="pick(this)"><span class="opt-key">a</span>became calm</div>
+<div class="opt" data-k="b" onclick="pick(this)"><span class="opt-key">b</span>moved fast</div>
+<div class="opt" data-k="c" onclick="pick(this)"><span class="opt-key">c</span>broke</div>
+<div class="opt" data-k="d" onclick="pick(this)"><span class="opt-key">d</span>jumped</div>
+</div>
+  <div class="q-result"></div>
+  <div class="q-expl">문장 해석: 마음이 안정되었다<br>뜻: 안정되다<br>해설: 감정이나 상태가 차분해지는 것을 의미한다<br>활용 문장: He finally settled down.<br>그는 마침내 진정되었다</div>
+</div>
+<div class="submit-wrap">
+  <h3>📖 Chapter 21 채점하기</h3>
+  <p>7문제 중 <strong id="cnt21">0</strong>문제 선택됨</p>
+  <button class="btn-go" id="btn21" onclick="gradePanel(21)">채점하기 🎯</button>
+  <div class="score-box" id="score21">
+    <div class="sc-title">🏆 SCORE — Chapter 21</div>
+    <div class="sc-big" id="big21">—<span>/7</span></div>
+    <div class="sc-pct" id="pct21"></div>
+    <div class="sc-bars">
+      <div class="sc-bar"><div class="sc-bar-label">✅ 맞은 문제</div><div class="sc-bar-val green" id="ok21">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">❌ 틀린 문제</div><div class="sc-bar-val red" id="bad21">—</div></div>
+      <div class="sc-bar"><div class="sc-bar-label">⬜ 미선택</div><div class="sc-bar-val" id="skip21">—</div></div>
+    </div>
+    <div class="sc-msg" id="msg21"></div>
+    <div class="pbar"><div class="pbar-fill" id="fill21" style="width:0%"></div></div>
+    <button class="btn-retry" onclick="retryPanel(21)">🔄 다시 풀기</button>
+  </div>
+</div>
+</div>
+<footer style="text-align:center;padding:20px;font-size:12px;color:#5A6880;">
+  © 2026 KRSA R&amp;D. All rights reserved. · <strong style="color:#007A65">KidsNReading</strong>
+</footer>
+<script>
+var totals={1:7,2:7,3:7,4:7,5:7,6:7,7:7,8:7,9:7,10:8,11:7,12:7,13:7,14:7,15:7,16:7,17:7,18:7,19:7,20:7,21:7};var NC=21;
+function switchTab(n){for(var i=1;i<=NC;i++){document.getElementById('tab'+i).classList.toggle('active',i===n);document.getElementById('panel'+i).classList.toggle('active',i===n);}window.scrollTo({top:0,behavior:'smooth'});}
+function pick(el){
+  var card=el.closest('.q-card');
+  if(!card||card.classList.contains('done'))return;
+  card.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');});
+  el.classList.add('sel');
+  var pid=el.closest('.panel').id.replace('panel','');
+  document.getElementById('cnt'+pid).textContent=document.getElementById('panel'+pid).querySelectorAll('.opt.sel').length;
+}
+function gradePanel(pid){
+  var panel=document.getElementById('panel'+pid);
+  var cards=panel.querySelectorAll('.q-card');
+  var ok=0,bad=0,skip=0;
+  cards.forEach(function(card){
+    var ans=card.dataset.ans;
+    var sel=card.querySelector('.opt.sel');
+    var cel=card.querySelector('.opt[data-k="'+ans+'"]');
+    card.classList.add('done');
+    if(cel)cel.classList.add('show-ans');
+    var res=card.querySelector('.q-result');
+    var expl=card.querySelector('.q-expl');
+    var ehead='<div class="expl-head">📝 해설</div>';
+    if(!sel){skip++;res.innerHTML='<span class="rtag rtag-bad">⬜ 미선택</span><span class="rans">정답: <b>'+ans.toUpperCase()+'</b></span>';card.classList.add('ans-skip');if(expl)expl.innerHTML=ehead+expl.innerHTML;}
+    else if(sel.dataset.k===ans){sel.classList.add('ok');ok++;res.innerHTML='<span class="rtag rtag-ok">✓ 정답!</span>';card.classList.add('ans-ok');if(expl)expl.innerHTML=ehead+expl.innerHTML;}
+    else{sel.classList.add('bad');bad++;res.innerHTML='<span class="rtag rtag-bad">✗ 오답</span><span class="rans">정답: <b>'+ans.toUpperCase()+'</b></span>';card.classList.add('ans-bad');if(expl)expl.innerHTML=ehead+expl.innerHTML;}
+  });
+  var total=totals[pid];var pct=Math.round(ok/total*100);
+  document.getElementById('big'+pid).innerHTML=ok+'<span>/'+total+'</span>';
+  document.getElementById('pct'+pid).textContent='정답률 '+pct+'%';
+  document.getElementById('ok'+pid).textContent=ok;document.getElementById('bad'+pid).textContent=bad;document.getElementById('skip'+pid).textContent=skip;
+  document.getElementById('fill'+pid).style.width=pct+'%';
+  var msgs=['💪 다시 도전해 봐요!','📖 조금 더 읽고 다시 도전해 봐요!','👍 좋아요! 틀린 문제 해설을 확인해 봐요.','😊 잘했어요! 조금 더 연습하면 완벽해져요!','🌟 훌륭해요! 거의 다 맞혔어요!','🏆 완벽해요! 모든 문제를 다 맞혔어요!'];
+  document.getElementById('msg'+pid).textContent=msgs[pct===100?5:pct>=90?4:pct>=80?3:pct>=70?2:pct>=60?1:0];
+  document.getElementById('score'+pid).classList.add('show');
+  document.getElementById('btn'+pid).disabled=true;
+  document.getElementById('tab'+pid).classList.add('done-tab');
+  setTimeout(function(){document.getElementById('score'+pid).scrollIntoView({behavior:'smooth',block:'center'});},150);
+}
+function retryPanel(pid){
+  var panel=document.getElementById('panel'+pid);
+  panel.querySelectorAll('.q-card').forEach(function(card){
+    card.classList.remove('done','ans-ok','ans-bad','ans-skip');
+    card.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel','ok','bad','show-ans');});
+    card.querySelector('.q-result').innerHTML='';
+    var e=card.querySelector('.q-expl');
+    if(e)e.innerHTML=e.innerHTML.replace(/<div class="expl-head">.*?<\/div>/,'');
+  });
+  document.getElementById('score'+pid).classList.remove('show');
+  document.getElementById('btn'+pid).disabled=false;
+  document.getElementById('cnt'+pid).textContent='0';
+  document.getElementById('tab'+pid).classList.remove('done-tab');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function printAll(){document.body.classList.remove('ps');document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('pt');});window.print();}
+function printCurrent(){var pid=1;for(var i=1;i<=NC;i++){if(document.getElementById('tab'+i).classList.contains('active')){pid=i;break;}}document.body.classList.add('ps');document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('pt');});document.getElementById('panel'+pid).classList.add('pt');window.print();setTimeout(function(){document.body.classList.remove('ps');document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('pt');});},1000);}
+</script>
+</body>
+</html>
